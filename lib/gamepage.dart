@@ -1,6 +1,7 @@
-import 'dart:html';
+
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class Gamepage extends StatefulWidget {
   @override
@@ -36,9 +37,10 @@ class _GamepageState extends State<Gamepage> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 40, top: 100, bottom: 20),
+                        const EdgeInsets.only(left: 40, top: 40, bottom: 20),
                     child: Container(
                       width: 150,
                       child: const Text('Player O',
@@ -71,7 +73,7 @@ class _GamepageState extends State<Gamepage> {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsets.only(top: 100, right: 25, bottom: 20),
+                        const EdgeInsets.only(top:40, right: 25, bottom: 20),
                     child: Container(
                       width: 150,
                       child: const Text(
@@ -115,6 +117,7 @@ class _GamepageState extends State<Gamepage> {
                       _tapped(index);
                     },
                     child: Container(
+                      
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey[600]!)),
                       child: Center(
@@ -129,11 +132,35 @@ class _GamepageState extends State<Gamepage> {
                     ),
                   );
                 }),
+          ),
+          Container(
+            height: 40,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.green[300],
+            ),
+            child: TextButton(
+              
+              onPressed: (){
+                _reset();
+              }, 
+              child: Icon(Icons.refresh,color:Colors.white ,)
+              ),
           )
         ],
       ),
     );
   }
+   void _reset(){
+   setState(() {
+     ohscore=0;
+   exscore=0;
+   for(int i=0;i<9;i++){
+   displayExOh[i]='';
+   }
+   });
+   }
+
 
   void _tapped(int index) {
     setState(() {
@@ -215,13 +242,26 @@ class _GamepageState extends State<Gamepage> {
       context: context, 
       builder: (BuildContext context){
         return  AlertDialog(
-          title: Text('Winner is' + winner),
+          backgroundColor: Colors.grey[50],
+          title: Text('Winner is ' + winner,
+          style: TextStyle(
+            fontSize: 30,
+            fontFamily: 'Roboto',
+            fontWeight: FontWeight.bold,
+          ),
+          ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Play Again !'),
+              child: Text('Play Again !',
+              style: TextStyle(
+                fontSize: 25,
+                color: Colors.blue[900],
+                fontFamily: 'Roboto',
+              ),
+              ),
               onPressed:(){
                 _clearBoard();
-                Navigator.of(context).pop;
+                Navigator.of(context).pop();
               }
             )
           ],
@@ -244,14 +284,27 @@ class _GamepageState extends State<Gamepage> {
       context: context, 
       builder: (BuildContext context){
         return  AlertDialog(
-          title: const Text('DRAW'),
+          backgroundColor: Colors.grey[50],
+          title: const Text('DRAW',
+          style: TextStyle(
+            fontSize: 30,
+            fontFamily: 'Roboto',
+            fontWeight: FontWeight.bold,
+          ),
+          ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Play Again !'),
+              child: Text('Play Again !',
+              style: TextStyle(
+                fontSize: 25,
+                color: Colors.blue[900],
+                fontFamily: 'Roboto',
+              ),
+              ),
               onPressed:(){
                 _clearBoard();
-                Navigator.of(context).pop;
-              }
+                Navigator.of(context).pop();
+              },
             )
           ],
         );
